@@ -3,9 +3,6 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: "/build",
-    proxy: {
-      '/api/leaders': 'http://localhost:3000'
-    }
   },
   entry: "./client/index.js",
   output: {
