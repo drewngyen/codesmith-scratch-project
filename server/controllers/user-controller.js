@@ -25,8 +25,16 @@ function createUser(req, res) {
 };
 // TODO: query a user full name
 function queryUser(req, res) {
-    req.body.name = "Drew";
-    SELECT "DREW" FROM "public"."user" WHERE user.name
+    let query = req.body.query;
+    console.log(`query: ${query}`);
+    let queryStr = `SELECT * FROM "public"."users" WHERE "username" LIKE '%${query}%' OR "name" LIKE '%${query}%'`
+    db.one(queryStr).then(data => {
+        console.log(`query accepted`);
+        res.status(200);
+        console.log(data);
+    }).catch(err => {
+        res.status(404);
+    })
 };
 // TODO: query a users interests
 function grabUserInterests(req, res) {};
