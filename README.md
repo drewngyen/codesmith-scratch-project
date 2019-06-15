@@ -1,4 +1,4 @@
-## React Vanilla Template
+## React Vanilla Template for Scratch Project
 
 - Run `npm install`
 - Run `npm run dev` to start dev server
