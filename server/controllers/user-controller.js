@@ -25,15 +25,21 @@ function createUser(req, res) {
 };
 // TODO: query a user full name
 function queryUser(req, res) {
-    let query = req.body.query;
+    let query = req.params.id;
     console.log(`query: ${query}`);
     let queryStr = `SELECT * FROM "public"."users" WHERE "username" LIKE '%${query}%' OR "name" LIKE '%${query}%'`
+    console.log(queryStr);
     db.one(queryStr).then(data => {
         console.log(`query accepted`);
+        console.log(JSON.parse(data));
         res.status(200);
+        res.json(data);
         console.log(data);
-    }).catch(err => {
+    })
+    .catch(err => {
+        console.log(`there has been an error: ${err}`);
         res.status(404);
+        res.json(err);
     })
 };
 // TODO: query a users interests
@@ -73,4 +79,4 @@ function testRoute(req, res) {
     res.json(obj);
 }
 
-module.exports = { testRoute, insertTestData, parseRequest, createUser };
+module.exports = { testRoute, insertTestData, parseRequest, createUser, queryUser };
