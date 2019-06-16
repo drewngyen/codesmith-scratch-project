@@ -29,7 +29,7 @@ app.get('/giftlist/:id', userCtrl.testRoute);
 // query a individual user's interests
 app.get('/interests/:id', userCtrl.testRoute);
 // creating a new user with giftlist and interests
-app.post('/create', userCtrl.createUser);
+app.post('/api/create', userCtrl.createUser);
 // updating a user's giftlist
 app.put('/user/:id', userCtrl.testRoute);
 

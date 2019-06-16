@@ -31,7 +31,7 @@ function queryUser(req, res) {
     console.log(queryStr);
     db.one(queryStr).then(data => {
         console.log(`query accepted`);
-        console.log(JSON.parse(data));
+        console.log(data);
         res.status(200);
         res.json(data);
         console.log(data);
@@ -39,9 +39,15 @@ function queryUser(req, res) {
     .catch(err => {
         console.log(`there has been an error: ${err}`);
         res.status(404);
-        res.json(err);
+        res.json(err.result.rows);
     })
 };
+// TODO: add gifts to user
+function addGifts(req, res) {
+    let giftArr = req.body;
+    let queryString = `INSERT INTO public.gifts (u_id,gift,completed)
+    VALUES (${u_id},'${gift}',false)`;
+}
 // TODO: query a users interests
 function grabUserInterests(req, res) {};
 // TODO: query a users giftlist
