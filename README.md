@@ -11,5 +11,5 @@
 - css-loader, babel-loader, configured webpack
 
 #### To create your own:
-- Run `npm init`
+- Run `npm init``
 - Import package.json and run `npm install`
