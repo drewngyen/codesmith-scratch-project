@@ -3,6 +3,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: "/build",
+    historyApiFallback: true,
   },
   entry: "./client/index.js",
   output: {
