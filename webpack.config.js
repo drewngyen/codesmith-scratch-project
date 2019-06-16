@@ -3,8 +3,9 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: "/build",
+    historyApiFallback: true,
     proxy: {
-      '/api/leaders': 'http://localhost:3000'
+      '/api': 'http://localhost:3000'
     }
   },
   entry: "./client/index.js",
@@ -32,5 +33,4 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]
   },
-  
 };
