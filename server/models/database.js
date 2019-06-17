@@ -3,7 +3,9 @@ const pgp = require("pg-promise")();
 const uri =
   "postgres://ufrumaho:GoA4EDvj51NUOOC5TkCwgKczox8Uv-wS@raja.db.elephantsql.com:5432/ufrumaho";
 
-var db = pgp(uri);
+const uriLocal = "postgres://dev:ilovetesting@localhost/giftly";
+// var db = pgp(uri);
+var db = pgp(uriLocal);
 
 db.one("SELECT $1 AS value", 123)
   .then(function(data) {
@@ -20,7 +22,7 @@ CREATE TABLE users (
   username VARCHAR(80) UNIQUE NOT NULL,
   name VARCHAR(100) NOT NULL,
   notes TEXT,
-  interests TEXT,
+  interests TEXT
 );
 
 // TABLE NAME AND KEYS MUST BE IN DOUBLE QUOTE

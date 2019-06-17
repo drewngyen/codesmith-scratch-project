@@ -16,6 +16,7 @@ function createUser(req, res) {
   let notes = body.notes;
   let interests = body.interests;
   let name = `${fname} ${lname}`;
+  let gifts = body.gifts;
   let queryStr = `INSERT INTO public.users (username,name,notes,interests)
     VALUES ('${username.toLowerCase()}','${name}', '${notes}', '${interests}')`;
   console.log(`this is the query: ${queryStr}`);
@@ -23,19 +24,36 @@ function createUser(req, res) {
     .then(data => {
       console.log("user has been created!");
       res.status(200);
-      res.send("yay it worked!!");
+        res.send("yay it worked!!");
     })
     .catch(err => {
       console.log(`something happened.. err: ${err}`);
-      res.send(`err msg ${err}`)
+        res.send(`err msg ${err}`);
     });
-    db.one()
-}
-// TODO: helper func to get user ID
-function getUserName() {
 
-};
+  // logic to add gifts
+  if (Array.isArray(gifts)) {
+    for (el of gifts) {
+      let gift = Object.keys(el)[0];
+      let queryStrAddGift = `INSERT INTO public.gifts (u_name,gift,completed)
+            VALUES ('${username}','${gift}',false)`;
+      db.one(queryStrAddGift)
+        .then(data => {
+          console.log(`gift: ${el} entered`);
+          console.log(data);
+          //   res.sendStatus(200);
+        })
+        .catch(err => {
+          console.log(`error: ${err}`);
+          //   res.send(err);
+        });
+    }
+    res.sendStatus(200);
+  }
+}
+
 // TODO: query a user full name
+// TODO: ADD GIFTS
 function queryUser(req, res, next) {
   let query = req.params.id;
   console.log(`query: ${query}`);
@@ -47,29 +65,34 @@ function queryUser(req, res, next) {
       console.log(data);
       res.status(200);
       res.locals.userData = data;
-      next();
+      res.json(data);
     })
     .catch(err => {
       console.log(`there has been an error: ${err}`);
-      res.status(404);
+      res.status(200);
       res.locals.userData = err.result.rows;
       res.json(err.result.rows);
     });
 }
 
-// TODO: Send back user data
-function sendUser(req, res) {
-    let userData = res.locals.userData;
-    if (Array.isArray(userData));
-    res.json(userData.username);
+// TODO: Send back user data including notes, interests (Table users), send Table Gifts data
+// cannot parse array atm, must be single object ex/ { "id":2, "username":"gildagil" }
+function sendUserGifts(req, res) {
+  let username = req.params.id;
+  console.log(username);
+  let queryStr = `SELECT u_name,gift,completed FROM gifts WHERE u_name = '${username}';`
+    db.one(queryStr).then(data => {
+        console.log(`giftlist query accepted!`);
+        console.log(data);
+        res.status(200);
+        res.json(data);
+    }).catch(err => {
+        res.status(200);
+        console.log(`there has been an error retriving giftlist: ${err}`);
+        res.json(err.result.rows);
+    })
 }
-// TODO: Takes gift array
-function parseGifts(req, res) {
-  let giftArr = req.body.gifts;
-  for (el of giftArr) {
-    addGift(request, response);
-  }
-}
+
 // TODO: add gift to user, to use with middleware to handle arrays
 function addGift(req, res) {
   let user = req.params.user;
@@ -88,28 +111,24 @@ function addGift(req, res) {
       res.send();
     });
 }
-// TODO: query a users interests
-function grabUserInterests(req, res) {}
-// TODO: query a users giftlist
-function grabUserGiftList(req, res) {}
 // Requirements: JSON { "u_id": 1, "gift":"Tent", "checked":"false" }
 function updateUserGiftList(req, res) {
-  let body = req.body;
-  let u_name = body.u_name;
-  let gift = body.gift;
-  let bool = body.checked;
-  let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = ${u_name}`;
-  db.one(queryStr)
+    let body = req.body;
+    let u_name = body.u_name;
+    let gift = body.gift;
+    let bool = body.checked;
+    let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = ${u_name}`;
+    db.one(queryStr)
     .then(data => {
-      console.log(`data updated: ${data}`);
-      console.log(queryStr);
-      res.status(200);
-      res.send(data);
+        console.log(`data updated: ${data}`);
+        console.log(queryStr);
+        res.status(200);
+        res.send(data);
     })
     .catch(err => {
-      console.log(`error updating db: ${err}`);
-      res.status(400);
-      res.send(err);
+        console.log(`error updating db: ${err}`);
+        res.status(400);
+        res.send(err);
     });
 }
 
@@ -118,6 +137,10 @@ function updateUserGiftList(req, res) {
  * clone queried user's giftList to end user's table
  * update the cloned giftlist to avoid modifying the queried user's giftlist
  * allow other user's to view cloned queried giftlist (group feature)
+ // TODO: query a users interests
+ function grabUserInterests(req, res) {}
+ // TODO: query a users giftlist
+ function grabUserGiftList(req, res) {}
  */
 
 // middleware insert values
@@ -150,5 +173,5 @@ module.exports = {
   createUser,
   queryUser,
   addGift,
-  sendUser
+  sendUserGifts,
 };

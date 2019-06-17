@@ -32,22 +32,18 @@ app.get('/', (req, res) => {
 });
 
 // user controller 
-// query all users for test
+// query all users for TEST
 app.get('/api/users', userCtrl.testRoute);
 // query a individual user 
 app.get('/api/user/:id', userCtrl.queryUser);
-// queryUsername for TEST
-app.get('/test/:user', userCtrl.queryUser, userCtrl.sendUser);
 // query a individual user's gift list
-app.get('/giftlist/:id', userCtrl.testRoute);
-// query a individual user's interests
-app.get('/interests/:id', userCtrl.testRoute);
+app.get('/giftlist/:id', userCtrl.sendUserGifts);
 // creating a new user with giftlist and interests
 app.post('/api/create', userCtrl.createUser);
 // updating a user's giftlist
 app.put('/user/:id', userCtrl.testRoute);
 // add gift to user 
-app.post('/gift/:user', userCtrl.addGift);
+app.post('/giftlist/:id', userCtrl.addGift);
 
 
 
