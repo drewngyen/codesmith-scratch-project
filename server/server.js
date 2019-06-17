@@ -22,9 +22,6 @@ const userCtrl = require('./controllers/user-controller');
 
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')));
-app.get('/dependencies', (req, res) => {
-  res.json(path.join(__dirname, '../package.json'));
-});
 
 // serve index.html on the route '/'
 app.get('/', (req, res) => {
@@ -41,17 +38,13 @@ app.get('/giftlist/:id', userCtrl.sendUserGifts);
 // creating a new user with giftlist and interests
 app.post('/api/create', userCtrl.createUser);
 // updating a user's giftlist
-app.put('/user/:id', userCtrl.testRoute);
+app.put('/user/:id', userCtrl.updateUserGiftList);
 // add gift to user 
-app.post('/giftlist/:id', userCtrl.addGift);
+app.post('/user/:id', userCtrl.addGift);
 
 
 
 // test routes
-app.get('/test', userCtrl.insertTestData);
-// app.post('/', userCtrl.testRoute ,(req, res) => {
-//     res.redirect('/')
-// });
-
+// app.get('/test', userCtrl.insertTestData);
 
 app.listen(3000); //listens on port 3000 -> http://localhost:3000/

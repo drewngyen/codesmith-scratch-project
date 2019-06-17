@@ -65,9 +65,10 @@ function queryUser(req, res, next) {
       console.log(data);
       res.status(200);
       res.locals.userData = data;
-      res.json(data);
+      res.json([data]);
     })
     .catch(err => {
+        // TODO: ACTUALLY handle a error request instead of sending back rows, maybe use axios?
       console.log(`there has been an error: ${err}`);
       res.status(200);
       res.locals.userData = err.result.rows;
@@ -95,15 +96,14 @@ function sendUserGifts(req, res) {
 
 // TODO: add gift to user, to use with middleware to handle arrays
 function addGift(req, res) {
-  let user = req.params.user;
+  let user = req.params.id;
   let body = req.body;
-  let u_name = body.u_name;
   let gift = body.gift;
   let queryStr = `INSERT INTO public.gifts (u_name,gift,completed)
-    VALUES (${u_name},'${gift}',false)`;
+    VALUES ('${user}','${gift}',false)`;
   db.one(queryStr)
     .then(data => {
-      console.log(`gift added '${gift}' successfully to ${u_name}`);
+      console.log(`gift added '${gift}' successfully to ${user}`);
       res.send();
     })
     .catch(err => {
@@ -111,13 +111,13 @@ function addGift(req, res) {
       res.send();
     });
 }
-// Requirements: JSON { "u_id": 1, "gift":"Tent", "checked":"false" }
+// Requirements: JSON { "u_id": 1, "gift":"Tent", "completed":"false" }
 function updateUserGiftList(req, res) {
+    let u_name = req.params.id;
     let body = req.body;
-    let u_name = body.u_name;
     let gift = body.gift;
-    let bool = body.checked;
-    let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = ${u_name}`;
+    let bool = body.completed;
+    let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = '${u_name}'`;
     db.one(queryStr)
     .then(data => {
         console.log(`data updated: ${data}`);
@@ -174,4 +174,5 @@ module.exports = {
   queryUser,
   addGift,
   sendUserGifts,
+  updateUserGiftList
 };
