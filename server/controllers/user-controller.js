@@ -51,7 +51,7 @@ function queryUser(req, res, next) {
     })
     .catch(err => {
       console.log(`there has been an error: ${err}`);
-      res.status(404);
+      res.status(200);
       res.locals.userData = err.result.rows;
       res.json(err.result.rows);
     });
