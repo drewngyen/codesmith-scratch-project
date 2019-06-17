@@ -27,11 +27,11 @@ CREATE TABLE users (
 // check CANNOT be used as key name
 CREATE TABLE gifts (
 	_id serial PRIMARY KEY,
-  u_id INTEGER REFERENCES users(_id),
-  u_name VARCHAR(80) REFERENCES users(username),
+  u_name VARCHAR(80) REFERENCES users(username) NOT NULL,
   gift varchar(255) NOT NULL,
   completed BOOLEAN NOT NULL
-);
+  );
+  u_id INTEGER REFERENCES users(_id),
 
 // TABLE NAME AND KEYS MUST BE IN DOUBLE QUOTE
 CREATE TABLE interests (

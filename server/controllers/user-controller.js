@@ -17,7 +17,7 @@ function createUser(req, res) {
   let interests = body.interests;
   let name = `${fname} ${lname}`;
   let queryStr = `INSERT INTO public.users (username,name,notes,interests)
-    VALUES ('${username}','${name}', '${notes}', '${interests}')`;
+    VALUES ('${username.toLowerCase()}','${name}', '${notes}', '${interests}')`;
   console.log(`this is the query: ${queryStr}`);
   db.one(queryStr)
     .then(data => {
@@ -32,9 +32,11 @@ function createUser(req, res) {
     db.one()
 }
 // TODO: helper func to get user ID
-function getUserID() {};
+function getUserName() {
+
+};
 // TODO: query a user full name
-function queryUser(req, res) {
+function queryUser(req, res, next) {
   let query = req.params.id;
   console.log(`query: ${query}`);
   let queryStr = `SELECT * FROM "public"."users" WHERE "username" LIKE '%${query}%' OR "name" LIKE '%${query}%'`;
@@ -44,14 +46,22 @@ function queryUser(req, res) {
       console.log(`query accepted`);
       console.log(data);
       res.status(200);
-      res.json(data);
-      console.log(data);
+      res.locals.userData = data;
+      next();
     })
     .catch(err => {
       console.log(`there has been an error: ${err}`);
       res.status(404);
+      res.locals.userData = err.result.rows;
       res.json(err.result.rows);
     });
+}
+
+// TODO: Send back user data
+function sendUser(req, res) {
+    let userData = res.locals.userData;
+    if (Array.isArray(userData));
+    res.json(userData.username);
 }
 // TODO: Takes gift array
 function parseGifts(req, res) {
@@ -64,13 +74,13 @@ function parseGifts(req, res) {
 function addGift(req, res) {
   let user = req.params.user;
   let body = req.body;
-  let u_id = body.u_id;
+  let u_name = body.u_name;
   let gift = body.gift;
-  let queryStr = `INSERT INTO public.gifts (u_id,gift,completed)
-    VALUES (${u_id},'${gift}',false)`;
+  let queryStr = `INSERT INTO public.gifts (u_name,gift,completed)
+    VALUES (${u_name},'${gift}',false)`;
   db.one(queryStr)
     .then(data => {
-      console.log(`gift added '${gift}' successfully to ${u_id}`);
+      console.log(`gift added '${gift}' successfully to ${u_name}`);
       res.send();
     })
     .catch(err => {
@@ -85,10 +95,10 @@ function grabUserGiftList(req, res) {}
 // Requirements: JSON { "u_id": 1, "gift":"Tent", "checked":"false" }
 function updateUserGiftList(req, res) {
   let body = req.body;
-  let u_id = body.u_id;
+  let u_name = body.u_name;
   let gift = body.gift;
   let bool = body.checked;
-  let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_id = ${u_id}`;
+  let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = ${u_name}`;
   db.one(queryStr)
     .then(data => {
       console.log(`data updated: ${data}`);
@@ -139,5 +149,6 @@ module.exports = {
   parseRequest,
   createUser,
   queryUser,
-  addGift
+  addGift,
+  sendUser
 };

@@ -11,12 +11,19 @@ class UserCards extends Component {
   }
 
   componentDidMount(){
-      fetch('api/users')
-      .then((resp) => resp.json()) // Transform the data into json
-      .then(function(data) {
-        console.log(data)
-      
-  })
+    console.log('looking at api/users/gil')
+      fetch('http://localhost:3000/api/user/gil')
+      // Transform the data into json
+      .then(response => {
+        
+        return response.json();
+    })
+    .then(function(data) {
+        console.log('this is the data', data)
+        
+        
+    })
+
  }
 
   render(){
@@ -28,5 +35,8 @@ class UserCards extends Component {
     )
   }
 }
+
+
+
 
 export default UserCards;

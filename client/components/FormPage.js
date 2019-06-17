@@ -33,23 +33,34 @@ class FormPage extends Component {
     fetch()
   }
 
-
   setUsername(e) { this.setState({ username: e.target.value }); }
   setFirstname(e) { this.setState({ firstName: e.target.value }); }
   setLastname(e) { this.setState({ lastName: e.target.value }); }
   setInterests(e) { this.setState({ interests: e.target.value }); }
   setNotes(e) { this.setState({ notes: e.target.value }); }
   setWishList(e) {
-    const gifts = e.target.value.split(',');
-    gifts.forEach((gift) => {
-      const trimmed = gift.trim();
-      wishList.push({[trimmed]: false});
-    });
+    const input = e.target.value;
+    if (input[input.length - 1] === ',') {
+      const gifts = e.target.value.split(',');
+      console.log('gifts:');
+      console.log(gifts);
+      const lastItem = gifts[gifts.length - 2].trim();
+      console.log('lastItem:');
+      console.log(lastItem);
+      const toAdd = { [lastItem]: false };
+      // gifts.forEach((gift) => {
+      //   const trimmed = gift.trim();
+      //   newWishList.push({ [trimmed]: false });
+      //   this.setState({ wishList: [...this.state.wishList].concat(newWishList) });
+      // });
+      this.setState({ wishList: [...this.state.wishList, toAdd] });
+    }
   }
 
 
   render() {
-    console.log(this.state);
+    console.log('this.state.wishList:');
+    console.log(this.state.wishList);
     return (
       <div>
          Username: <input id={'username'} defaultValue={`Hugh`} onChange={(e) => { this.setUsername(e) }}></input> <br></br>
@@ -57,7 +68,7 @@ class FormPage extends Component {
          Last Name: <input id={'lastName'} defaultValue={`Mungous`} onChange={(e) => { this.setLastname(e) }}></input> <br></br>
          Wish List: <input id={'wishList'} onChange={(e) => { this.setWishList(e) }}/><br />
          Interests: <input id={'interests'} onChange={(e) => { this.setIntersts(e) }}/><br />
-         Notes: <input id={'notes'} defaultChecked={`travel prices to Northern Ukraine`}></input> <br></br>
+         Notes: <input id={'notes'} onChange={(e) => { this.setNotes(e) }}></input> <br></br>
          <button onClick={(e) => this.submitToServer(e)}>Submit</button>
       </div>
     );

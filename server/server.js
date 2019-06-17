@@ -35,7 +35,9 @@ app.get('/', (req, res) => {
 // query all users for test
 app.get('/api/users', userCtrl.testRoute);
 // query a individual user 
-app.get('/user/:id', userCtrl.queryUser);
+app.get('/api/user/:id', userCtrl.queryUser);
+// queryUsername for TEST
+app.get('/test/:user', userCtrl.queryUser, userCtrl.sendUser);
 // query a individual user's gift list
 app.get('/giftlist/:id', userCtrl.testRoute);
 // query a individual user's interests
