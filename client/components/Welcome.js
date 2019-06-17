@@ -13,7 +13,7 @@ class Welcome extends Component {
   render() {
     return (
       <div>
-        Welcome to Charizard's Sex Dungeon
+        Welcome to Charizard's Happy Place
       </div>
     );
   }
