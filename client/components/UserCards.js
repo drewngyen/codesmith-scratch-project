@@ -18,7 +18,7 @@ class UserCards extends Component {
     return(
       <div>
       <span>{this.props.userObj.username}</span> <br></br>
-      <space>{this.props.userObj.name}</space>
+      <span>{this.props.userObj.name}</span>
       </div>
     )
   }

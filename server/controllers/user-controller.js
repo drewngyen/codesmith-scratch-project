@@ -47,7 +47,7 @@ function queryUser(req, res, next) {
       console.log(data);
       res.status(200);
       res.locals.userData = data;
-      next();
+      res.json([data]);
     })
     .catch(err => {
       console.log(`there has been an error: ${err}`);

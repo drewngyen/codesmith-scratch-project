@@ -12,6 +12,7 @@ class Search extends Component {
     }
     this.clickClack = this.clickClack.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
   
   clickClack(e){
@@ -27,12 +28,22 @@ class Search extends Component {
     /* SET back to false and clear users obj and cards */
     if(this.state.haveUsersRendered === true) {
       this.setState({haveUsersRendered: false});
+      this.resetState();
     }
 
   }
 
   handleChange(e){
     this.setState({ inputVal: e.target.value });
+  }
+
+  resetState(){
+    this.setState({
+      inputVal: [],
+      users: [],
+      theUserCards: [],
+      haveUsersRendered: false
+    })
   }
 
   componentDidUpdate(){
