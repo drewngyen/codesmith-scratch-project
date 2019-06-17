@@ -18,14 +18,17 @@ module.exports = db;
 CREATE TABLE users (
   _id serial PRIMARY KEY,
   username VARCHAR(80) UNIQUE NOT NULL,
-  name VARCHAR(100) NOT NULL
+  name VARCHAR(100) NOT NULL,
+  notes TEXT,
+  interests TEXT,
 );
 
 // TABLE NAME AND KEYS MUST BE IN DOUBLE QUOTE
 // check CANNOT be used as key name
 CREATE TABLE gifts (
 	_id serial PRIMARY KEY,
-	u_id INTEGER REFERENCES users(_id),
+  u_id INTEGER REFERENCES users(_id),
+  u_name VARCHAR(80) REFERENCES users(username),
   gift varchar(255) NOT NULL,
   completed BOOLEAN NOT NULL
 );
