@@ -12,8 +12,9 @@ class Welcome extends Component {
 
   render() {
     return (
-      <div>
+      <div className={'Welcome'}>
         Welcome to Charizard's Happy Place
+        
       </div>
     );
   }

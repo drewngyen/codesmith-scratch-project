@@ -3,28 +3,19 @@ import React, { Component } from "react";
 class UserCards extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-      
-    }
+    this.state = {};
   }
 
-  componentDidMount(){
-   
+  componentDidMount() {}
 
- }
-
-  render(){
-    return(
-      <div>
-      <span>{this.props.userObj.username}</span> <br></br>
-      <span>{this.props.userObj.name}</span>
+  render() {
+    return (
+      <div className="user-cards">
+        <span>{this.props.userObj.username}</span> <br />
+        <span>{this.props.userObj.name}</span>
       </div>
-    )
+    );
   }
 }
-
-
-
 
 export default UserCards;

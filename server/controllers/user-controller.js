@@ -127,7 +127,7 @@ function updateUserGiftList(req, res) {
     })
     .catch(err => {
         console.log(`error updating db: ${err}`);
-        res.status(400);
+        res.status(200);
         res.send(err);
     });
 }

@@ -1,0 +1,52 @@
+.form-page {
+    font-size:1.4em;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 0 ,0 , 0.1);
+    // font-size:2em;
+}
+input{
+    font-size: 1em;
+    height: 35px;
+    width: 250px;
+    padding: 15px 0px;
+    border-radius: 10px;
+    border: 4px solid rgb(255, 249, 249);
+    background-color: rgba(255, 255, 255, 0.438);
+    box-sizing:border-box;
+    padding-left: 1rem;
+}
+ 
+input:focus{
+    border:5px solid rgb(220, 182, 253);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.842);
+};
+
+#submitButton{
+    font-style: italic; 
+    // color:rgb(75, 72, 72);
+    border-radius: 10px;
+    border: 4px rgba(255, 0 ,0 , 0.0);
+    padding:10px 20px;
+    background-color: rgb(154, 88, 199);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    transition: 0.2s ease;
+    outline: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   
+}
+
+#submitButton:hover{
+    background-color: rgb(211, 213, 216);
+    // color: white;
+    border: 4px rgba(231, 231, 231, 0.925);
+}
+// TODO: Style the input boxes
+// TODO: Style the labels
+// TODO: Style Submit button
+// TODO: Add classNames to these tags in FormPage.js

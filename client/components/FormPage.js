@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MainButton from './MainButton';
+import MainButton from "./MainButton";
 
 import fetch from "isomorphic-fetch";
 
@@ -11,8 +11,8 @@ class FormPage extends Component {
       firstName: null,
       lastName: null,
       wishList: [],
-      notes: '',
-      interests: ''
+      notes: "",
+      interests: ""
     };
     this.submitToServer = this.submitToServer.bind(this);
     this.setUsername = this.setUsername.bind(this);
@@ -21,31 +21,41 @@ class FormPage extends Component {
   }
 
   submitToServer(e) {
-    console.log('in submit to server');
-    fetch('http://localhost:3000/api/create/', {
-      method: 'POST',
+    console.log("in submit to server");
+    fetch("http://localhost:3000/api/create/", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(this.state)
     });
-    fetch()
+    fetch();
   }
 
-  setUsername(e) { this.setState({ username: e.target.value }); }
-  setFirstname(e) { this.setState({ firstName: e.target.value }); }
-  setLastname(e) { this.setState({ lastName: e.target.value }); }
-  setInterests(e) { this.setState({ interests: e.target.value }); }
-  setNotes(e) { this.setState({ notes: e.target.value }); }
+  setUsername(e) {
+    this.setState({ username: e.target.value });
+  }
+  setFirstname(e) {
+    this.setState({ firstName: e.target.value });
+  }
+  setLastname(e) {
+    this.setState({ lastName: e.target.value });
+  }
+  setInterests(e) {
+    this.setState({ interests: e.target.value });
+  }
+  setNotes(e) {
+    this.setState({ notes: e.target.value });
+  }
   setWishList(e) {
     const input = e.target.value;
-    if (input[input.length - 1] === ',') {
-      const gifts = e.target.value.split(',');
-      console.log('gifts:');
+    if (input[input.length - 1] === ",") {
+      const gifts = e.target.value.split(",");
+      console.log("gifts:");
       console.log(gifts);
       const lastItem = gifts[gifts.length - 2].trim();
-      console.log('lastItem:');
+      console.log("lastItem:");
       console.log(lastItem);
       const toAdd = { [lastItem]: false };
       // gifts.forEach((gift) => {
@@ -57,19 +67,64 @@ class FormPage extends Component {
     }
   }
 
-
   render() {
-    console.log('this.state.wishList:');
+    console.log("this.state.wishList:");
     console.log(this.state.wishList);
     return (
-      <div>
-         Username: <input id={'username'} defaultValue={`Hugh`} onChange={(e) => { this.setUsername(e) }}></input> <br></br>
-         First Name: <input id={'firstName'} defaultValue={`Hugh`} onChange={(e) => { this.setFirstname(e) }}></input> <br></br>
-         Last Name: <input id={'lastName'} defaultValue={`Mungous`} onChange={(e) => { this.setLastname(e) }}></input> <br></br>
-         Wish List: <input id={'wishList'} onChange={(e) => { this.setWishList(e) }}/><br />
-         Interests: <input id={'interests'} onChange={(e) => { this.setIntersts(e) }}/><br />
-         Notes: <input id={'notes'} onChange={(e) => { this.setNotes(e) }}></input> <br></br>
-         <button onClick={(e) => this.submitToServer(e)}>Submit</button>
+      <div className="form-page">
+        Username:{" "}
+        <input
+          id={"username"}
+          defaultValue={`Hugh`}
+          onChange={e => {
+            this.setUsername(e);
+          }}
+        />{" "}
+        <br />
+        First Name:{" "}
+        <input
+          id={"firstName"}
+          defaultValue={`Hugh`}
+          onChange={e => {
+            this.setFirstname(e);
+          }}
+        />{" "}
+        <br />
+        Last Name:{" "}
+        <input
+          id={"lastName"}
+          defaultValue={`Mungous`}
+          onChange={e => {
+            this.setLastname(e);
+          }}
+        />{" "}
+        <br />
+        Wish List:{" "}
+        <input
+          id={"wishList"}
+          onChange={e => {
+            this.setWishList(e);
+          }}
+          defaultValue={"Separate by commas!~"}
+        />
+        <br />
+        Interests:{" "}
+        <input
+          id={"interests"}
+          onChange={e => {
+            this.setIntersts(e);
+          }}
+        />
+        <br />
+        Notes:{" "}
+        <input
+          id={"notes"}
+          onChange={e => {
+            this.setNotes(e);
+          }}
+        />{" "}
+        <br />
+        <button id="submitButton" onClick={e => this.submitToServer(e)}>Submit</button>
       </div>
     );
   }

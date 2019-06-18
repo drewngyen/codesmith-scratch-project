@@ -1,5 +1,5 @@
 ## Database SQL Examples
-- be sure to use double quotes for columns, 
+- be sure to use double quotes for **columns**, single quote for **values**
 
 ```
 

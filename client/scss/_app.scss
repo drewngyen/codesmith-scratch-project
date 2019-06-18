@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+body {
+  font-family: "Roboto";
+  background: rgb(238, 174, 202);
+  background: linear-gradient(
+    30deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+}
+.navBar {
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  font-size: 45px;
+}
+.navBar,
+a {
+  margin: 5px 10px;
+  color: white;
+  position: relative;
+  top: 0;
+  transition: 0.2s ease;
+}
+.navBar,
+a:hover {
+  margin: 5px 10px;
+  color: pink;
+  top: -3px;
+}

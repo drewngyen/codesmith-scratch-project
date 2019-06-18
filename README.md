@@ -1,15 +1,12 @@
-## React Vanilla Template for Scratch Project
-
-- Run `npm install`
-- Run `npm run dev` to start dev server
-
-#### What's included:
-- Mongoose Controller/Server boilerplate
-- Express
-- React 
-- Webpack
-- css-loader, babel-loader, configured webpack
-
-#### To create your own:
-- Run `npm init``
-- Import package.json and run `npm install`
+## Team Charizard's Gift App
+#### Find a friend's giftlist and buy them stuff they'd enjoy!
+#### Tech Stack
+- SCSS
+- PostgreSQL via Elephant SQL 
+- React Router
+- ExpressJS
+- Node
+#### Current status of project
+##### Databases
+- Two tables: Gifts and Users
+- References are created via u_name(gifts)/username(users)
