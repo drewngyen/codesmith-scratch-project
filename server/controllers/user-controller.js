@@ -16,7 +16,7 @@ function createUser(req, res) {
   let notes = body.notes;
   let interests = body.interests;
   let name = `${fname} ${lname}`;
-  let gifts = body.gifts;
+  let gifts = body.wishList;
   let queryStr = `INSERT INTO public.users (username,name,notes,interests)
     VALUES ('${username.toLowerCase()}','${name}', '${notes}', '${interests}')`;
   console.log(`this is the query: ${queryStr}`);
@@ -86,7 +86,7 @@ function sendUserGifts(req, res) {
         console.log(`giftlist query accepted!`);
         console.log(data);
         res.status(200);
-        res.json(data);
+        res.json([data]);
     }).catch(err => {
         res.status(200);
         console.log(`there has been an error retriving giftlist: ${err}`);
@@ -117,6 +117,7 @@ function updateUserGiftList(req, res) {
     let body = req.body;
     let gift = body.gift;
     let bool = body.completed;
+    console.log(body);
     let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = '${u_name}'`;
     db.one(queryStr)
     .then(data => {

@@ -28,10 +28,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// user controller 
+// user controller
 // query all users for TEST
 app.get('/api/users', userCtrl.testRoute);
-// query a individual user 
+// query a individual user
 app.get('/api/user/:id', userCtrl.queryUser);
 // query a individual user's gift list
 app.get('/giftlist/:id', userCtrl.sendUserGifts);
@@ -39,7 +39,7 @@ app.get('/giftlist/:id', userCtrl.sendUserGifts);
 app.post('/api/create', userCtrl.createUser);
 // updating a user's giftlist
 app.put('/user/:id', userCtrl.updateUserGiftList);
-// add gift to user 
+// add gift to user
 app.post('/user/:id', userCtrl.addGift);
 
 

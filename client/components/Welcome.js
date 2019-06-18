@@ -14,7 +14,6 @@ class Welcome extends Component {
     return (
       <div className={'Welcome'}>
         Welcome to Charizard's Happy Place
-        
       </div>
     );
   }
