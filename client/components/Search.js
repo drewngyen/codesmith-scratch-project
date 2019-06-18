@@ -14,7 +14,7 @@ class Search extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.resetState = this.resetState.bind(this);
   }
-  
+
   clickClack(e){
       console.log(this.state.inputVal)
     fetch(`http://localhost:3000/api/user/${this.state.inputVal}`)
@@ -60,11 +60,11 @@ class Search extends Component {
 }
 
   render(){
-   
+
     console.log('checking state in render', (this.state));
     return(
       <div>
-        <input onChange={(e) => this.handleChange(e)} placeholder={'Username'}></input> 
+        <input onChange={(e) => this.handleChange(e)} placeholder={'Username'}></input>
         <button onClick={(e) => this.clickClack(e) }>Search</button>
         {this.state.theUserCards}
       </div>
