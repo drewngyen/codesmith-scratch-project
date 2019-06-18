@@ -86,7 +86,7 @@ function sendUserGifts(req, res) {
         console.log(`giftlist query accepted!`);
         console.log(data);
         res.status(200);
-        res.json(data);
+        res.json([data]);
     }).catch(err => {
         res.status(200);
         console.log(`there has been an error retriving giftlist: ${err}`);
@@ -117,6 +117,7 @@ function updateUserGiftList(req, res) {
     let body = req.body;
     let gift = body.gift;
     let bool = body.completed;
+    console.log(body);
     let queryStr = `UPDATE gifts SET completed = '${bool}' WHERE gift = '${gift}' AND u_name = '${u_name}'`;
     db.one(queryStr)
     .then(data => {
@@ -127,7 +128,7 @@ function updateUserGiftList(req, res) {
     })
     .catch(err => {
         console.log(`error updating db: ${err}`);
-        res.status(400);
+        res.status(200);
         res.send(err);
     });
 }
